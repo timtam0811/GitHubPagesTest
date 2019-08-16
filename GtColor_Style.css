@@ -1,0 +1,69 @@
+body{
+    /* font-family: "SF Pro Display","Helvetica Neue","Helvetica","Arial",sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
+}
+#title{
+    font-size:2em;
+    font-weight: bolder;
+    background: linear-gradient(to right, #fff,#aaa);
+    text-align: center;
+    margin:10px 0px;
+}
+.window{
+    display:inline-block;
+    width:90vw;
+    text-align: center;
+}
+.wrapper{
+    position:relative;
+    height:800px;
+    width:500px;
+    background: linear-gradient(rgb(194, 194, 194),rgb(148, 147, 147));
+    display:inline-block;
+}
+
+.mask{
+    display:block;
+    position: absolute;
+    height:100%;
+    width:100%;
+    /* background-image: url("../../image/PAC_BodyMask.png"); */
+    /* background-color:red; */
+    background:linear-gradient(rgb(223, 72, 12) 48%,rgb(236, 234, 87) 92%);
+    mask-image: url("./PAC_BodyMask.png");
+    -webkit-mask-image: url("./PAC_BodyMask.png");
+    mask-size: cover;
+    -webkit-mask-size: cover;
+
+}
+
+.parts{
+    display: block;
+    position:absolute;
+    background-image:url("./PAC_Parts.png");
+    background-size:cover;
+    height:100%;
+    width:100%;
+    left:16px;
+    top:-19px;
+}
+
+/* .background{
+    display:block;
+    position:absolute;
+    background:linear-gradient(#000,#fff);
+    top:48%;
+    left:0%;
+    width:1000px;
+    bottom:8%;
+} */
+
+
+.ui{
+    display:inline-block;
+    position:absolute;
+    width:500px;
+    height:800px;
+    font-size: 1.5em;
+    overflow:scroll;
+}

@@ -1,0 +1,111 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="./GtColor_Style.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="title">Random Pacifica Maker</div>
+<div class="window">
+        <div class="wrapper">
+            <div class="mask"></div>
+            <div class="parts"></div>
+        </div>
+        <div class="ui">
+            <div id="item-0" style="cursor:default"></div>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+    const grad_top=" 48%";
+    const grad_bottom=" 92%";
+    var list_id=1;
+    var firstItem=document.getElementById("item-0");
+    var swatch1=document.createElement("span");
+    var gr1=document.createElement("span");
+    var arw=document.createElement("span");
+    var swatch2=document.createElement("span");
+    var gr2=document.createElement("span");
+    swatch1.style.backgroundColor="rgb(223,72,12)";
+    swatch1.innerHTML="&nbsp&nbsp&nbsp&nbsp";
+    swatch2.style.backgroundColor="rgb(236,234,87)";
+    swatch2.innerHTML="&nbsp&nbsp&nbsp&nbsp";
+    gr1.innerHTML="rgb(223,72,12)";
+    arw.innerHTML=" → ";
+    gr2.innerHTML="rgb(236,234,87)";
+    firstItem.append(swatch1);
+    firstItem.append(gr1);
+    firstItem.append(arw);
+    firstItem.append(swatch2);
+    firstItem.append(gr2);
+    firstItem.addEventListener("click",PaintFromList);
+    firstItem.addEventListener("mouseover",itemMouseOn);
+    firstItem.addEventListener("mouseout",itemMouseOff);
+    $(".parts").on("click",(event)=>{
+        var cls=randomPaint();
+        updateColorList(cls);
+        var listBottom=$(".ui")[0].scrollHeight;
+        $(".ui").scrollTop(listBottom);
+    });
+    function randomPaint(){
+        var mask=$(".mask");
+        var rgbs=[];
+        for(var i=0;i<6;i++){
+            var rand_val=Math.floor(Math.random()*255);
+            rgbs.push(rand_val);
+        }
+        var grad_start=`rgb(${rgbs[0]},${rgbs[1]},${rgbs[2]})`;
+        var grad_end=`rgb(${rgbs[3]},${rgbs[4]},${rgbs[5]})`;
+        mask.css({
+            "background":"linear-gradient("+grad_start+grad_top+","+grad_end+grad_bottom+")"
+        });
+        return [grad_start,grad_end];
+    }
+    function updateColorList(cls){
+        var list=$(".ui");
+        var wrapper=document.createElement("div");
+        wrapper.id=`item-${list_id}`;
+        wrapper.style.cursor="default";
+        list_id=list_id+1;
+        list.append(wrapper);
+        var swatch1=document.createElement("span");
+        var gr1=document.createElement("span");
+        var arw=document.createElement("span");
+        var swatch2=document.createElement("span");
+        var gr2=document.createElement("span");
+        swatch1.style.backgroundColor=cls[0];
+        swatch1.innerHTML="&nbsp&nbsp&nbsp&nbsp";
+        swatch2.style.backgroundColor=cls[1];
+        swatch2.innerHTML="&nbsp&nbsp&nbsp&nbsp";
+        gr1.innerHTML=cls[0];
+        arw.innerHTML=" → ";
+        gr2.innerHTML=cls[1];
+        wrapper.append(swatch1);
+        wrapper.append(gr1);
+        wrapper.append(arw);
+        wrapper.append(swatch2);
+        wrapper.append(gr2);
+        wrapper.addEventListener("click",PaintFromList);
+        wrapper.addEventListener("mouseover",itemMouseOn);
+        wrapper.addEventListener("mouseout",itemMouseOff);
+    }
+    function PaintFromList(event){
+        var gr1=event.currentTarget.childNodes[1].innerHTML;
+        var gr2=event.currentTarget.childNodes[4].innerHTML;
+        var mask=$(".mask");
+        mask.css({
+            "background":"linear-gradient("+gr1+grad_top+","+gr2+grad_bottom+")"
+        });
+    }
+    function itemMouseOn(event){
+        event.currentTarget.style.backgroundColor="#a0e5fa";
+    }
+    function itemMouseOff(event){
+        event.currentTarget.style.backgroundColor="transparent";
+    }
+</script>
+</body>
