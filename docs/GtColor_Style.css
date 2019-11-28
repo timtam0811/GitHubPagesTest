@@ -29,9 +29,12 @@ body{
     width:100%;
     /* background-image: url("../../image/PAC_BodyMask.png"); */
     /* background-color:red; */
-    background:linear-gradient(rgb(223, 72, 12) 48%,rgb(236, 234, 87) 92%);
-    mask-image: url("./PAC_BodyMask.png");
-    -webkit-mask-image: url("./PAC_BodyMask.png");
+    /* background:linear-gradient(rgb(223, 72, 12) 48%,rgb(236, 234, 87) 92%); */
+    background: linear-gradient(rgb(223, 72, 12) 7%,rgb(236, 234, 87) 20%,rgb(223,72,12) 40%,rgb(223,72,12) 60%,rgb(236,234,87) 90%);
+    /* mask-image: url("./PAC_BodyMask.png"); */
+    /* -webkit-mask-image: url("./PAC_BodyMask.png"); */
+    mask-image: url("./PAC_BodyMask_MH.png");
+    -webkit-mask-image: url("./PAC_BodyMask_MH.png");
     mask-size: cover;
     -webkit-mask-size: cover;
 
@@ -40,12 +43,29 @@ body{
 .parts{
     display: block;
     position:absolute;
-    background-image:url("./PAC_Parts.png");
+    /* background-image:url("./PAC_Parts.png"); */
+    background-image:url("./PAC_Parts_MH.png");
     background-size:cover;
-    height:100%;
+    /* height:100%;
     width:100%;
     left:16px;
-    top:-19px;
+    top:-19px; */
+    height:96.5%;
+    width: 96.5%;
+    left:17px;
+    top:21px;
+}
+
+.parts-bl.enable{
+    display: block;
+    position:absolute;
+    background-image:url("./PAC_Parts_Black.png");
+    background-size:contain;
+    background-repeat: no-repeat;
+    height:23.5%;
+    width: 100%;
+    left:209px;
+    top:485px;
 }
 
 /* .background{
@@ -65,5 +85,28 @@ body{
     width:500px;
     height:800px;
     font-size: 1.5em;
+    border:2px outset rgb(78, 78, 78);
+    /* overflow:scroll; */
+}
+
+.console{
+    height: 0px;
+    width: 0px;
+    border-right: 500px solid #000000;
+    border-bottom: 40px solid rgb(199, 199, 199);
+    white-space: nowrap;
+    color: white;
+}
+
+.switchcolor{
+    position: absolute;
+    width:100%;
+    height:5%;
+    text-shadow: 1px 1px 1px  rgb(0, 0, 0);
+}
+
+.item-wrapper{
+    height:95%;
     overflow:scroll;
+    
 }
