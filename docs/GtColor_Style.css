@@ -89,11 +89,24 @@ body{
     /* overflow:scroll; */
 }
 
+.color-select{
+    display: block;
+    height: 15%;
+    width:100%;
+}
+
+.simple-color{
+    margin-left: auto;
+    margin-right:auto;
+}
+
 .console{
     height: 0px;
     width: 0px;
     border-right: 500px solid #000000;
     border-bottom: 40px solid rgb(199, 199, 199);
+    margin-top : 2%;
+    margin-bottom: 2%;
     white-space: nowrap;
     color: white;
 }
@@ -106,7 +119,7 @@ body{
 }
 
 .item-wrapper{
-    height:95%;
+    height:80%;
     overflow:scroll;
     
 }

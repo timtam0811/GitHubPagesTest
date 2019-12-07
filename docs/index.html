@@ -5,6 +5,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">
     </script>
+    <script type="text/javascript" src="./jquery.simple-color.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,6 +17,11 @@
             <div class="parts-bl"></div>
         </div>
         <div class="ui">
+            <div class="color-select">
+                <div style="text-shadow: 1px 1px 1px #555555;">Manual Color Select</div>
+                <input id="sc1" class='simple_color' value='#ffffff'/>
+                <input id="sc2" class='simple_color' value='#000000'/>
+            </div>
             <div class="console" style="cursor:pointer">
                 <div id="switchcolor-button" class="switchcolor" style="cursor: pointer">
                     Switch Hardware Color
@@ -30,9 +36,31 @@
 
 
 <script type="text/javascript">
+    $('#sc1').simpleColor({
+        cellWidth : 15,
+        cellHeight : 15,
+        boxWidth : "calc(100%-4px)",
+        boxHeight : "30%",
+        displayColorCode : true,
+        onSelect : function(hex,element){
+            setGuitarColor(["#"+hex,current_gr2]);
+        }
+    });
+    $('#sc2').simpleColor({
+        cellWidth : 15,
+        cellHeight : 15,
+        boxWidth : "calc(100%-4px)",
+        boxHeight : "30%",
+        displayColorCode : true,
+        onSelect : function(hex,element){
+            setGuitarColor([current_gr1,"#"+hex]);
+        }
+    });
     const grad_top=" 48%";
     const grad_bottom=" 92%";
     const grad_pos=[" 7%"," 20%"," 40%"," 60%"," 90%"];
+    var current_gr1="rgb(223,72,12)";
+    var current_gr2="rgb(236,234,87)";
     var list_id=1;
     var switchcolor=document.getElementById("switchcolor-button");
     var firstItem=document.getElementById("item-0");
@@ -41,13 +69,13 @@
     var arw=document.createElement("span");
     var swatch2=document.createElement("span");
     var gr2=document.createElement("span");
-    swatch1.style.backgroundColor="rgb(223,72,12)";
+    swatch1.style.backgroundColor=current_gr1;
     swatch1.innerHTML="&nbsp&nbsp&nbsp&nbsp";
-    swatch2.style.backgroundColor="rgb(236,234,87)";
+    swatch2.style.backgroundColor=current_gr2;
     swatch2.innerHTML="&nbsp&nbsp&nbsp&nbsp";
-    gr1.innerHTML="rgb(223,72,12)";
+    gr1.innerHTML=current_gr1;
     arw.innerHTML=" → ";
-    gr2.innerHTML="rgb(236,234,87)";
+    gr2.innerHTML=current_gr2;
     firstItem.append(swatch1);
     firstItem.append(gr1);
     firstItem.append(arw);
@@ -64,26 +92,15 @@
         $(".item-wrapper").scrollTop(listBottom);
     });
     function randomPaint(){
-        var mask=$(".mask");
         var rgbs=[];
         for(var i=0;i<6;i++){
             var rand_val=Math.floor(Math.random()*255);
             rgbs.push(rand_val);
         }
-        var grad_start=`rgb(${rgbs[0]},${rgbs[1]},${rgbs[2]})`;
-        var grad_end=`rgb(${rgbs[3]},${rgbs[4]},${rgbs[5]})`;
-        // mask.css({
-        //     "background":"linear-gradient("+grad_start+grad_top+","+grad_end+grad_bottom+")"
-        // });
-        mask.css({
-            "background":"linear-gradient("+grad_start+grad_pos[0]+","
-                                        +grad_end+grad_pos[1]+","
-                                        +grad_start+grad_pos[2]+","
-                                        +grad_start+grad_pos[3]+","
-                                        +grad_end+grad_pos[4]
-                                        +")"
-        });
-        return [grad_start,grad_end];
+        var gr1=`rgb(${rgbs[0]},${rgbs[1]},${rgbs[2]})`;
+        var gr2=`rgb(${rgbs[3]},${rgbs[4]},${rgbs[5]})`;
+        setGuitarColor([gr1,gr2]);
+        return [gr1,gr2];
     }
     function updateColorList(cls){
         var list=$(".item-wrapper");
@@ -114,12 +131,17 @@
         wrapper.addEventListener("mouseout",itemMouseOff);
     }
     function PaintFromList(event){
+        setGuitarColor(getColorFromList(event));
+    }
+    function getColorFromList(event){
         var gr1=event.currentTarget.childNodes[1].innerHTML;
         var gr2=event.currentTarget.childNodes[4].innerHTML;
-        var mask=$(".mask");
-        // mask.css({
-        //     "background":"linear-gradient("+gr1+grad_top+","+gr2+grad_bottom+")"
-        // });
+        return [gr1,gr2];
+    }
+    function setGuitarColor(cls){
+        var gr1 = cls[0];
+        var gr2 = cls[1];
+        var mask = $(".mask");
         mask.css({
             "background":"linear-gradient("+gr1+grad_pos[0]+","
                                         +gr2+grad_pos[1]+","
@@ -128,6 +150,8 @@
                                         +gr2+grad_pos[4]
                                         +")"
         });
+        current_gr1 = gr1;
+        current_gr2 = gr2;
     }
     function SwitchHardwareColor(event){
         if(!$(".parts-bl").hasClass("enable")){
